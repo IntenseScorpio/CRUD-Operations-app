@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Current Database</h1>
+
+<table border="1" cellpadding="10" class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Joining Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.EmployeeID }}</td>
+            <td>{{ emp.Name }}</td>
+            <td>{{ emp.Email }}</td>
+            <td>{{ emp.Department or 'N/A' }}</td>
+            <td>{{ emp.Salary or 'N/A' }}</td>
+            <td>{{ emp.JoiningDate.strftime('%Y-%m-%d') if emp.JoiningDate else 'N/A' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if Name %}
+    <h2>Hello {{ Name }} </h2>
+    <p>Your Entry has been Saved</p>
+    <br>
+    <div class="table table-bordered">
+        <table >
+            {% for our_user in our_users %}
+                {{ our_user.EmployeeID }}.  {{ our_user.Name }} - {{ our_user.Email }} - <a href="{{url_for('update',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-dark">Edit</button></a>  -  <a href="{{url_for('delete',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-danger">Delete</button></a><br>
+            {% endfor %}
+        </table>
+    </div>
+
+{% else %}
+<h1>Employee Form</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        {{ form.Name.label }}
+        {{ form.Name(class="form-control") }}
+        <br>
+
+        {{ form.Email.label }}
+        {{ form.Email(class="form-control") }}
+        <br>
+
+        {{ form.Department.label }}
+        {{ form.Department(class="form-control") }}
+        <br>
+
+        {{ form.Salary.label }}
+        {{ form.Salary(class="form-control") }}
+        <br>
+
+        {{ form.JoiningDate.label }}
+        {{ form.JoiningDate(class="form-control") }}
+        <br>
+
+        {{ form.submit(class="btn btn-dark") }}
+    </form>
+
+<br><br><br>
+<h2>Current DB</h2>
+<div class="table table-bordered">
+<table >
+{% for our_user in our_users %}
+    {{ our_user.EmployeeID }}.  {{ our_user.Name }} - {{ our_user.Email }} - <a href="{{url_for('update',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-dark">Edit</button></a>  -  <a href="{{url_for('delete',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-danger">Delete</button></a><br>
+{% endfor %}
+</table>
+</div>
+{% endif %}
+
+{% endblock %}

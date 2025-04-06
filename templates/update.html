@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if Name %}
+    <h2>Hello {{ Name }} </h2>
+    <p>Your Entry has been Saved</p>
+    <br>
+    <div class="table table-bordered">
+        <table >
+{% for our_user in our_users %}
+    {{ our_user.EmployeeID }}.  {{ our_user.Name }} - {{ our_user.Email }} - <a href="{{url_for('update',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-dark">Edit</button></a>  -  <a href="{{url_for('delete',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-danger">Delete</button></a><br>
+{% endfor %}
+        </table>
+    </div>
+
+{% else %}
+
+<h1>Update Form</h1>
+<br>
+    <form action="/update/{{ name_to_update.EmployeeID }}" method="POST">
+        {{ form.hidden_tag() }}
+
+        <p>Name</p> 
+        <p>{{name_to_update.Name}}</p>
+        <br>
+
+        <p>Email ID</p>
+        <p>{{ name_to_update.Email }}</p>
+        <br>
+
+        <p>Edit Department</p>
+        {{ form.Department(class="form-control", 
+        value=name_to_update.Department) }}
+        <br>
+
+        {{ form.Salary.label }}
+        {{ form.Salary(class="form-control",
+        value=name_to_update.Salary) }}
+        <br>
+
+        <p>Joining Date</p>
+        <p>{{ name_to_update.JoiningDate }}</p>
+        <br>
+
+        {{ form.submit(class="btn btn-dark") }}
+        <br><br>
+
+        <!-- <a href="{{url_for('delete',EmployeeID=EmployeeID)}}"><button class="btn btn-danger">Delete</button></a> -->
+    </form>
+
+{% for our_user in our_users %}
+    {{ our_user.EmployeeID }}.  {{ our_user.Name }} - {{ our_user.Email }} - <a href="{{url_for('update',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-dark">Edit</button></a>  -  <a href="{{url_for('delete',EmployeeID=our_user.EmployeeID)}}"><button class="btn btn-danger">Delete</button></a><br>
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}
